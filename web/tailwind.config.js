@@ -8,11 +8,21 @@ export default {
     extend: {
       colors: {
         brand: {
+          300: "#996DFF",
           500: "#8257E6",
         }
-      }
+      },
+      borderRadius: {
+        md: "4px"
+      },
+      
     },
   },
-  plugins: [],
+  plugins: [
+    // eslint-disable-next-line no-undef
+    require('@tailwindcss/forms'),
+    // eslint-disable-next-line no-undef
+    require('tailwind-scrollbar'),
+  ],
 }
 
