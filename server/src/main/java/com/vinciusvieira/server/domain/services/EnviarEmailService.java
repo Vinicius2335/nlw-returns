@@ -1,5 +1,6 @@
 package com.vinciusvieira.server.domain.services;
 
+import com.vinciusvieira.server.domain.exceptions.MensagemNaoEnviadaException;
 import com.vinciusvieira.server.domain.models.Email;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
@@ -25,14 +26,18 @@ public class EnviarEmailService {
         mailSender.send(message);
     }
 
-    public void enviarEmailHtml(Email email) throws MessagingException {
+    public void enviarEmailHtml(Email email) {
         MimeMessage message = mailSender.createMimeMessage();
 
-        message.setFrom(new InternetAddress(System.getenv("GMAIL")));
-        message.setRecipients(TO, email.getEmailTo());
-        message.setSubject(email.getSubject());
-        message.setContent(email.getBody(), "text/html; charset=utf-8");
+        try {
+            message.setFrom(new InternetAddress(System.getenv("GMAIL")));
+            message.setRecipients(TO, email.getEmailTo());
+            message.setSubject(email.getSubject());
+            message.setContent(email.getBody(), "text/html; charset=utf-8");
+            mailSender.send(message);
 
-        mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new MensagemNaoEnviadaException("Erro ao tentar enviar email", e);
+        }
     }
 }

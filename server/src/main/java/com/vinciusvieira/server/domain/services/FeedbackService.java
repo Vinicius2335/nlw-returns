@@ -29,7 +29,7 @@ public class FeedbackService {
         return feedbackMapper.toFeedbackRequestModel(feedbackSaved);
     }
 
-    public FeedbackResquest createFeedbackHtml(Feedback feedback) throws MessagingException {
+    public FeedbackResquest createFeedbackHtml(Feedback feedback) {
         Feedback feedbackSaved = feedbackRepository.save(feedback);
 
         String htmContent =

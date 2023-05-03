@@ -4,7 +4,6 @@ import com.vinciusvieira.server.api.mappers.FeedbackMapper;
 import com.vinciusvieira.server.api.representation.models.request.FeedbackResquest;
 import com.vinciusvieira.server.domain.models.Feedback;
 import com.vinciusvieira.server.domain.services.FeedbackService;
-import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,7 +23,7 @@ public class WidgetController {
     }
 
     @PostMapping("/feedbacks")
-    public ResponseEntity<FeedbackResquest> createFeedbacks(@RequestBody @Valid FeedbackResquest feedbackResquest) throws MessagingException {
+    public ResponseEntity<FeedbackResquest> createFeedbacks(@RequestBody @Valid FeedbackResquest feedbackResquest) {
         Feedback feedbackToSave = feedbackMapper.toFeedbackModel(feedbackResquest);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
