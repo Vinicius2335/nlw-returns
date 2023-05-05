@@ -1,15 +1,22 @@
+import bugImg from "../assets/bug.png"
+import ideaImg from "../assets/idea.png"
+import otherImg from "../assets/thought.png"
+
 export const feedbackTypes = {
-  'BUG': {
+  'PROBLEM': {
     title: 'Problema',
-    image: require('../assets/bug.png')
+    image: bugImg,
+    placeholder: 'Algo não está funcionando bem? Queremos corrigir. Conte com detalhes o que está acontecendo...',
   },
   'IDEA': {
     title: 'Ideia',
-    image: require('../assets/idea.png'),
+    image: ideaImg,
+    placeholder: 'Teve uma ideia de melhoria ou de nova funcionalidade? Conta pra gente!',
   },
   'OTHER': {
     title: 'Outro',
-    image: require('../assets/thought.png'),
+    image: otherImg,
+    placeholder: 'Queremos te ouvir. O que você gostaria de nos dizer?',
   },
 };
 

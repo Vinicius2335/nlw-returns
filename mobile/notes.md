@@ -12,6 +12,8 @@
     - plugins:['react-native-reanimated/plugin']
 7.2. npx expo install react-native-gesture-handler  - complementos do bottom-
   - importar em App.tsx
+8. npx expo install react-native-view-shot - funcionalidade para screenshot
+9. npx expo install expo-file-system - converte a uri numa imagem
 
 ----------
 
