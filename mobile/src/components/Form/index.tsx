@@ -46,16 +46,13 @@ export function Form({ feedbackType, onFeedbackCanceled, onFeedbackSent }: FormP
     const screenshotBase64 = screenshot && await FileSystem.readAsStringAsync(screenshot, { encoding: 'base64'});
 
     const screenshotURL = `data:image/png;base64, ${screenshotBase64}`;
-    // console.log(screenshotURL.length);
-    // Screenshot gerando uma string gigante que o Mysql nao aguenta
-    // por isso foi colocado mscreenshot como null
 
     try {
 
       await AXIOS.post("/feedbacks", {
         type: feedbackType,
         comment: comment,
-        screenshot: null,
+        screenshot: screenshotURL,
       });
 
       onFeedbackSent();

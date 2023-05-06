@@ -15,7 +15,10 @@ export default {
       borderRadius: {
         md: "4px"
       },
-      
+      fontFamily: {
+        sans: ['Inter', 'sans-serif']
+      },
+
     },
   },
   plugins: [

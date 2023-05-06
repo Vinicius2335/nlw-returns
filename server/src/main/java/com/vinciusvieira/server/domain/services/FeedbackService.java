@@ -5,7 +5,6 @@ import com.vinciusvieira.server.api.representation.models.request.FeedbackResque
 import com.vinciusvieira.server.domain.models.Email;
 import com.vinciusvieira.server.domain.models.Feedback;
 import com.vinciusvieira.server.domain.repositories.FeedbackRepository;
-import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,12 +30,19 @@ public class FeedbackService {
 
     public FeedbackResquest createFeedbackHtml(Feedback feedback) {
         Feedback feedbackSaved = feedbackRepository.save(feedback);
+        String feedbackScreenshot;
+
+        if (feedback.getScreenshot().isBlank()){
+            feedbackScreenshot = "Nenhum Screenshot foi adicionado";
+        } else {
+//            feedbackScreenshot = String.format("<a href='%s' target='_blank'>Visualizar</a>", feedback.getScreenshot());
+            feedbackScreenshot = "<img src=\"" + feedback.getScreenshot() +"\" alt='Imagem'/>";
+        }
 
         String htmContent =
                 "<p><strong>Tipo do feedback: </strong>" + feedback.getType() + "</p>"+
                 "<p><strong>Comentário: </strong>" + feedback.getComment() + "</p>" +
-                "<p><strong>Screenshot</strong></p>" +
-                "<img src="+ feedback.getScreenshot() +" alt=\"Nenhum Screenshot foi adicionado\" />";
+                "<p><strong>Screenshot: </strong>" + feedbackScreenshot + " </p>";
 
         Email email = Email.builder()
                 .emailTo(System.getenv("SEND_TO")) //environmment variable
