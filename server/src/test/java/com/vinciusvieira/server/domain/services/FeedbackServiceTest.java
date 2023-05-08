@@ -47,6 +47,9 @@ class FeedbackServiceTest {
         // EnviarEmailService - enviarEmailSimples
         BDDMockito.doNothing().when(enviarEmailServiceMock).enviarEmailSimples(any(Email.class));
 
+        // EnviarEmailService - enviarEmailHtml
+        BDDMockito.doNothing().when(enviarEmailServiceMock).enviarEmailHtml(any(Email.class));
+
         // FeedbackMapper - toFeedbackRequestModel
         BDDMockito.when(feedbackMapperMock.toFeedbackRequestModel(any(Feedback.class)))
                 .thenReturn(expectedFeedbackResquest);
@@ -67,4 +70,17 @@ class FeedbackServiceTest {
     }
 
     // continuar TEST
+    @Test
+    @DisplayName("createFeedbackHtml Return a FeedbackRequest when successfull")
+    void createFeedbackHtml_ReturnFeedbackRequest_WhenSuccessful(){
+        Feedback feedback = FeedbackCreator.mockValidFeedback();
+        FeedbackResquest feedbackHtml = feedbackService.createFeedbackHtml(feedback);
+
+        assertAll(
+                () -> assertNotNull(feedbackHtml),
+                () -> assertEquals(expectedFeedbackResquest.getComment(), feedbackHtml.getComment()),
+                () -> assertEquals(expectedFeedbackResquest.getScreenshot(), feedbackHtml.getScreenshot()),
+                () -> assertEquals(expectedFeedbackResquest.getType(), feedbackHtml.getType())
+        );
+    }
 }

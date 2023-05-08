@@ -5,6 +5,7 @@ import com.vinciusvieira.server.api.representation.models.request.FeedbackResque
 import com.vinciusvieira.server.domain.models.Email;
 import com.vinciusvieira.server.domain.models.Feedback;
 import com.vinciusvieira.server.domain.repositories.FeedbackRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ public class FeedbackService {
     private final FeedbackMapper feedbackMapper;
     private final EnviarEmailService enviarEmailService;
 
+    @Transactional
     public FeedbackResquest createFeedbackSimples(Feedback feedback){
         Feedback feedbackSaved = feedbackRepository.save(feedback);
 
@@ -28,6 +30,7 @@ public class FeedbackService {
         return feedbackMapper.toFeedbackRequestModel(feedbackSaved);
     }
 
+    @Transactional
     public FeedbackResquest createFeedbackHtml(Feedback feedback) {
         Feedback feedbackSaved = feedbackRepository.save(feedback);
         String feedbackScreenshot;

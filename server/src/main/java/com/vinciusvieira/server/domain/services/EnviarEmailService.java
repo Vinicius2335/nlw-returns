@@ -6,6 +6,7 @@ import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -18,12 +19,18 @@ public class EnviarEmailService {
     private final JavaMailSender mailSender;
 
     public void enviarEmailSimples(Email email) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setTo(email.getEmailTo());
-        message.setSubject(email.getSubject());
-        message.setText(email.getBody());
 
-        mailSender.send(message);
+        try {
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setTo(email.getEmailTo());
+            message.setSubject(email.getSubject());
+            message.setText(email.getBody());
+
+            mailSender.send(message);
+
+        } catch (MailException ex){
+            throw new MensagemNaoEnviadaException("Erro ao tentar enviar email", ex);
+        }
     }
 
     public void enviarEmailHtml(Email email) {
